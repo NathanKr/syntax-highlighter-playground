@@ -1,8 +1,8 @@
 import { highlightCodeInHTMLString } from "@/utils/server/prism-utils";
 import { GetStaticProps, NextPage } from "next";
-import Prism from "prismjs";
 import loadLanguages from "prismjs/components/index";
 import "prismjs/themes/prism-tomorrow.css";
+import styles from "@/styles/Home.module.css";
 
 interface IProps {
   __html: string;
@@ -44,7 +44,12 @@ console.log(selectedColor);
 };
 
 const Home: NextPage<IProps> = ({ __html }) => {
-  return <div dangerouslySetInnerHTML={{ __html }}></div>;
+  return (
+    <div
+      className={styles.container}
+      dangerouslySetInnerHTML={{ __html }}
+    ></div>
+  );
 };
 
 export default Home;
