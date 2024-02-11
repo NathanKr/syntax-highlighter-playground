@@ -11,8 +11,42 @@ Seems that are two popular : <a href='https://prismjs.com/'>prism</a> and <a hre
 <h2>Constraints</h2>
 I want to build the post with highlight on build time or at least server side for performance reasons
 
-<h2>package decision</h2>
-Prism is lighter(not relevant for ssg) and faster(relevant for ssg ?) according to the the first reference so i prefer it. it has also other benefits.
+<h2>Package decision</h2>
+Prism is lighter(not relevant for ssg) and faster according to the the first reference so i prefer it. it has also other benefits.
+
+<h2>Usage</h2>
+You MUST enclose the code with pre code elements and provide the code class
+
+```typescript
+  const phpCode = `
+    <pre><code class="language-php">
+$greeting = 'Hello, world!';
+echo $greeting;</code></pre>
+    `;
+
+  const tsCode = `
+    <pre><code class="language-typescript">
+enum Color {
+  Red,
+  Green,
+  Blue
+};
+
+const selectedColor: Color = Color.Red;
+console.log(selectedColor);
+    </code></pre>
+  `;
+  const htmlString = `
+  <h2>This is php highlight</h2>${phpCode}
+  <h2>This is typescript highlight</h2>${tsCode}`;
+
+  const highlightedHTML = highlightCodeInHTMLString(htmlString);
+
+  let props: IProps = { __html: highlightedHTML };
+```
+
+<h2>Points of interest</h2>
+highlightCodeInHTMLString uses jsdom to create a dom tree from html string , use inside Prism.highlight on the code parts and re create the html string
 
 <h2>References</h2>
 <ul>
