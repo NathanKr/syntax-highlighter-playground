@@ -1,3 +1,4 @@
+import { highlightCodeInHTMLString } from "@/utils/server/prism-utils";
 import { GetStaticProps, NextPage } from "next";
 import Prism from "prismjs";
 import loadLanguages from "prismjs/components/index";
@@ -8,24 +9,34 @@ interface IProps {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  
   // Load all languages.
   loadLanguages();
 
-  
-  const snippet = `
-    $greeting = 'Hello, world!';
-    echo $greeting;
+  const phpCode = `
+    <pre><code class="language-php">
+$greeting = 'Hello, world!';
+echo $greeting;</code></pre>
+    `;
+
+  const tsCode = `
+    <pre><code class="language-typescript">
+enum Color {
+  Red,
+  Green,
+  Blue
+};
+
+const selectedColor: Color = Color.Red;
+console.log(selectedColor);
+    </code></pre>
   `;
+  const htmlString = `
+  <h2>This is php highlight</h2>${phpCode}
+  <h2>This is typescript highlight</h2>${tsCode}`;
 
-  const highlightHtml = `<h1>hello</h1><pre><code>${Prism.highlight(
-    snippet,
-    Prism.languages.php,
-    "php"
-  )}</pre></code>`;
+  const highlightedHTML = highlightCodeInHTMLString(htmlString);
 
-  
-  let props: IProps = { __html: highlightHtml };
+  let props: IProps = { __html: highlightedHTML };
 
   return {
     props, // will be passed to the page component as props
