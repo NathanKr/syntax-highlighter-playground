@@ -18,6 +18,13 @@ Prism is lighter(not relevant for ssg) and faster according to the the first ref
 You MUST enclose the code with pre code elements and provide the code class
 
 ```typescript
+import loadLanguages from "prismjs/components/index";
+import "prismjs/themes/prism-tomorrow.css";
+
+
+// Load all languages.
+  loadLanguages();
+
   const phpCode = `
     <pre><code class="language-php">
 $greeting = 'Hello, world!';
